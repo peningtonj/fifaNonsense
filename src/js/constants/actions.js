@@ -1,0 +1,8 @@
+export const REQUEST_PLAYER_STATS = 'REQUEST_PLAYER_STATS'
+export const ADD_GAME = 'ADD_GAME'
+export const RECIEVE_STATS = 'RECIEVE_STATS'
+export const RECIEVE_RECENT = 'RECIEVE_RECENT'
+
+export const ADD_TEAM = 'ADD_TEAM'
+export const RECIEVE_TEAMS = 'RECIEVE_TEAMS'
+export const RECIEVE_ALL_GAMES = 'RECIEVE_ALL_GAMES'
