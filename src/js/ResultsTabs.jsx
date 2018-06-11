@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import RecentGames from './RecentGames.jsx'
 import Rankings from './Rankings.jsx'
 import PlayerVPlayerSum from './PlayerVPlayerSum'
-
+import PlayerVPlayer from './PlayerVPlayer'
 class ResultsTab extends Component {
 
   render() {
@@ -15,6 +15,7 @@ class ResultsTab extends Component {
     <Tab>Rankings</Tab>
     <Tab>Last 10 Games</Tab>
     <Tab>Player Matrix</Tab>
+    <Tab>Player Match Up</Tab>
   </TabList>
   <TabPanel>
     <Rankings />
@@ -24,6 +25,9 @@ class ResultsTab extends Component {
   </TabPanel>
   <TabPanel>
     <PlayerVPlayerSum />
+  </TabPanel>
+  <TabPanel>
+    <PlayerVPlayer />
   </TabPanel>
 </Tabs>
     )

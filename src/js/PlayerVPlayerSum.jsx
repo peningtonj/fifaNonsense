@@ -33,7 +33,6 @@ class PlayerVPlayerSum extends Component {
           }
         }
     })
-  console.log(won, gamesPlayed, round(12.12421323))
   return (gamesPlayed === 0) ? '-' : round((100 * won)/gamesPlayed);
 }
 

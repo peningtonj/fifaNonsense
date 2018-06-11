@@ -6,3 +6,6 @@ export const RECIEVE_RECENT = 'RECIEVE_RECENT'
 export const ADD_TEAM = 'ADD_TEAM'
 export const RECIEVE_TEAMS = 'RECIEVE_TEAMS'
 export const RECIEVE_ALL_GAMES = 'RECIEVE_ALL_GAMES'
+
+export const SET_COMPARE_A = 'SET_COMPARE_A'
+export const SET_COMPARE_B = 'SET_COMPARE_B'

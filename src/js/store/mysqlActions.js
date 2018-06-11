@@ -67,7 +67,6 @@ function updateElo(home, away, stats, winner) {
   const e1 = r1 / (r1 + r2)
   const e2 = r2 / (r1 + r2)
   let s1 = 0;
-  console.log(winner)
   if (winner === 'home') {
     s1 = 1
   } else if (winner === 'away') {
@@ -78,7 +77,6 @@ function updateElo(home, away, stats, winner) {
   const s2 = 1 - s1
   const newEloHome = homeElo + 32 * (s1 - e1);
   const newEloAway = awayElo + 32 * (s2 - e2);
-  console.log(homeElo, awayElo, r1, r2, e1, e2, s1, s2)
   return {
     homeElo: newEloHome,
     awayElo: newEloAway,
