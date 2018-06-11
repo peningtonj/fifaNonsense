@@ -4,6 +4,11 @@ import { getStats } from './store/mysqlActions.js'
 import store from './store/store.js'
 import ReactTable from 'react-table';
 
+
+function compare(playera, playerb) {
+  return (playerb.points - playera.points)
+}
+
 class Rankings extends React.Component{
   componentDidMount() {
     store.dispatch(getStats())
@@ -12,7 +17,7 @@ class Rankings extends React.Component{
   render() {
     return (
       <ReactTable
-        data={this.props.stats}
+        data={this.props.stats.sort(compare)}
         showPagination={false}
         showPageSizeOptions={false}
         columns={[
