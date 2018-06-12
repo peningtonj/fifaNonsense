@@ -5,6 +5,7 @@ import RecentGames from './RecentGames.jsx'
 import Rankings from './Rankings.jsx'
 import PlayerVPlayerSum from './PlayerVPlayerSum'
 import PlayerVPlayer from './PlayerVPlayer'
+import PlayerDetails from './PlayerDetails'
 class ResultsTab extends Component {
 
   render() {
@@ -16,6 +17,7 @@ class ResultsTab extends Component {
     <Tab>Last 10 Games</Tab>
     <Tab>Player Matrix</Tab>
     <Tab>Player Match Up</Tab>
+    <Tab>Player Details</Tab>
   </TabList>
   <TabPanel>
     <Rankings />
@@ -28,6 +30,9 @@ class ResultsTab extends Component {
   </TabPanel>
   <TabPanel>
     <PlayerVPlayer />
+  </TabPanel>
+  <TabPanel>
+    <PlayerDetails />
   </TabPanel>
 </Tabs>
     )

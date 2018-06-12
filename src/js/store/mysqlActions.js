@@ -1,4 +1,3 @@
-import { createAction } from 'redux-actions';
 import { ADD_GAME, RECIEVE_STATS, RECIEVE_RECENT, RECIEVE_ALL_GAMES } from '../constants/actions.js'
 import store from './store.js'
 import axios from 'axios';
@@ -85,23 +84,26 @@ function updateElo(home, away, stats, winner) {
 
 function sendStats(stats, game) {
   let update = {}
-  if (game.homeScore === game.awayScore) {
+  const hs = parseInt(game.homeScore)
+  const as = parseInt(game.awayScore)
+  console.log(game)
+  if (hs === as) {
     const elos = updateElo(game.home, game.away, stats, 'draw')
-    update.home = updatePlayer(stats, game.home, 'draw', parseInt(game.homeScore), parseInt(game.awayScore))
-    update.away = updatePlayer(stats, game.away, 'draw', parseInt(game.awayScore), parseInt(game.homeScore))
+    update.home = updatePlayer(stats, game.home, 'draw', hs, as)
+    update.away = updatePlayer(stats, game.away, 'draw', as, hs)
     update.home.elo = elos.homeElo
     update.away.elo = elos.awayElo
     console.log(elos)
-} else if (game.homeScore > game.awayScore) {
+} else if (hs > as) {
     const elos = updateElo(game.home, game.away, stats, 'home')
-    update.home = updatePlayer(stats, game.home, 'win', parseInt(game.homeScore), parseInt(game.awayScore))
-    update.away = updatePlayer(stats, game.away, 'loss', parseInt(game.awayScore), parseInt(game.homeScore))
+    update.home = updatePlayer(stats, game.home, 'win',  hs, as)
+    update.away = updatePlayer(stats, game.away, 'loss', as, hs)
     update.home.elo = elos.homeElo
     update.away.elo = elos.awayElo
   } else {
     const elos = updateElo(game.home, game.away, stats, 'away')
-    update.home = updatePlayer(stats, game.home, 'loss', parseInt(game.homeScore), parseInt(game.awayScore))
-    update.away = updatePlayer(stats, game.away, 'win', parseInt(game.awayScore), parseInt(game.homeScore))
+    update.home = updatePlayer(stats, game.home, 'loss', hs, as)
+    update.away = updatePlayer(stats, game.away, 'win',  as, hs)
     update.home.elo = elos.homeElo
     update.away.elo = elos.awayElo
   }

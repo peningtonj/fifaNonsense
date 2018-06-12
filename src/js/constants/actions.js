@@ -9,3 +9,4 @@ export const RECIEVE_ALL_GAMES = 'RECIEVE_ALL_GAMES'
 
 export const SET_COMPARE_A = 'SET_COMPARE_A'
 export const SET_COMPARE_B = 'SET_COMPARE_B'
+export const CHANGE_FOCUS = 'CHANGE_FOCUS'

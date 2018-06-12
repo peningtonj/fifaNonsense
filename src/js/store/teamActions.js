@@ -1,4 +1,4 @@
-import { RECIEVE_TEAMS, ADD_TEAM } from '../constants/actions.js'
+import { RECIEVE_TEAMS } from '../constants/actions.js'
 import store from './store.js'
 import axios from 'axios';
 

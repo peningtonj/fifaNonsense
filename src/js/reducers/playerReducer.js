@@ -1,4 +1,4 @@
-import { SET_COMPARE_A, SET_COMPARE_B } from '../constants/actions.js';
+import { SET_COMPARE_A, SET_COMPARE_B, CHANGE_FOCUS } from '../constants/actions.js';
 
 const initialState = {
   compareA: null,
@@ -10,6 +10,7 @@ const initialState = {
     'Jack',
     'Other'
   ],
+  focus: undefined,
 }
 
 export function playerReducer (state = initialState, action) {
@@ -24,6 +25,12 @@ export function playerReducer (state = initialState, action) {
           ...state,
           compareB: action.player
         }
+      case CHANGE_FOCUS:
+        return {
+          ...state,
+          focus: action.player
+        }
+
       default:
         return state
       }

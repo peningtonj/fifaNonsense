@@ -110,14 +110,14 @@ class PlayerVPlayer extends Component {
       <Row>
         <Col md={{ size: 3, offset: 2 }}>
           <FormGroup>
-          <Input type="select" name="select" id="exampleSelect" onChange={this.onChangeA}>
+          <Input value={this.props.playerA} type="select" name="select" id="exampleSelect" onChange={this.onChangeA}>
             <option></option>
             {playerOptions}
           </Input>
           </FormGroup>
         </Col>
         <Col md={{ size: 3, offset: 2 }}>
-          <Input type="select" name="select" id="exampleSelect" onChange={this.onChangeB}>
+          <Input value={this.props.playerB} type="select" name="select" id="exampleSelect" onChange={this.onChangeB}>
             <option></option>
             {playerOptions}
           </Input>
