@@ -75,15 +75,17 @@ getDetails(player) {
 
   const resultsTeam =  byTeam.map(team => {
     const teamName = Object.keys(team)[0]
+    console.log(teamName)
     const teamGames = team[Object.keys(team)[0]].games
-    const winsWithTeam = wins(teamGames, player)
-    const lossesWithTeam = losses(teamGames, player)
-    const drawsWithTeam = teamGames.length - winsWithTeam.length - lossesWithTeam.length
+    console.log(losses(teamGames, player), losses(teamGames, player).length)
+    const winsWithTeam = wins(teamGames, player).length
+    const lossesWithTeam = losses(teamGames, player).length
+    const drawsWithTeam = teamGames.length - winsWithTeam - lossesWithTeam
     const points = 3 * winsWithTeam + drawsWithTeam
     return ({
       name : teamName,
-      games : teamGames.length,
-      losses : lossesWithTeam.length,
+      games : teamGames,
+      losses : lossesWithTeam,
       points : points,
       wins : winsWithTeam,
     })
@@ -92,26 +94,26 @@ getDetails(player) {
   const results =  byPlayer.map(opp => {
     const oppName = Object.keys(opp)[0]
     const oppGames = opp[Object.keys(opp)[0]].games
-    const winsAgOpp = wins(oppGames, player)
-    const lossesAgOpp = losses(oppGames, player)
-    const drawsAgOpp = oppGames.length - winsAgOpp.length - lossesAgOpp.length
+    const winsAgOpp = wins(oppGames, player).length
+    const lossesAgOpp = losses(oppGames, player).length
+    const drawsAgOpp = oppGames.length - winsAgOpp - lossesAgOpp
     const points = 3 * winsAgOpp + drawsAgOpp
     return ({
       name : oppName,
-      games : oppGames.length,
+      games : oppGames,
       points : points,
-      wins : winsAgOpp.length,
-      losses : lossesAgOpp.length,
+      wins : winsAgOpp,
+      losses : lossesAgOpp,
     })
 })
 
 
   results.sort(function(a, b) {
-    return (agresti(b.games * 3, b.points) - agresti(3 * a.games, a.points))
+    return (agresti(b.games.length * 3, b.points) - agresti(3 * a.games.length, a.points))
   })
 
   resultsTeam.sort(function(a, b) {
-    return (agresti(b.games * 3, b.points) - agresti(3 * a.games, a.points))
+    return (agresti(b.games.length * 3, b.points) - agresti(3 * a.games.length, a.points))
   })
 
 
@@ -123,6 +125,13 @@ getDetails(player) {
     return (team.games != 0)
   });
 
+
+  usefulResultsTeam.forEach(team =>{
+    console.log(team)
+    console.log(agresti(team.games.length * 3, team.points))
+    console.log(agresti(team.games.length, team.losses))
+  })
+
   let best = '-'
   let worst = '-'
 
@@ -132,7 +141,7 @@ getDetails(player) {
 
   if (usefulResults.length > 0) {
     worst = usefulResults.sort(function(a, b) {
-      return (agresti(b.games * 3, b.losses) - agresti(3 * a.games, a.losses))
+      return (agresti(b.games.length, b.losses) - agresti(a.games.length, a.losses))
     })[0].name
   }
 
@@ -144,7 +153,7 @@ getDetails(player) {
 
   if (usefulResults.length > 0) {
     worstTeam = usefulResultsTeam.sort(function(a, b) {
-      return (agresti(b.games * 3, b.losses) - agresti(3 * a.games, a.losses))
+      return (agresti(b.games.length, b.losses) - agresti(a.games.length, a.losses))
     })[0].name
   }
 
