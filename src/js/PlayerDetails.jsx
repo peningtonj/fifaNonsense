@@ -7,15 +7,16 @@ import store from "./store/store.js";
 import { changeFocus } from './store/playerActions'
 import ReactTable from 'react-table'
 import { getAllGames } from './store/mysqlActions'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 
 
 const wins = (games, player) => (games.filter(game => (
   ((game.home === player) && (game.homeScore > game.awayScore)) || ((game.away === player) && (game.awayScore > game.homeScore))
-)).length)
+)))
 
 const losses = (games, player) => (games.filter(game => (
   (game.home === player && game.homeScore < game.awayScore) || (game.away === player && game.awayScore < game.homeScore)
-)).length)
+)))
 
 const agresti = (games, wins) => {
   const kappa = 2.24140273
@@ -37,8 +38,20 @@ getDetails(player) {
      (game.away === player) || (game.home === player)
   ));
 
+
   const playerWins = wins(games, player)
   const playerLosses = losses(games, player)
+
+  let graphData = [];
+  let gameNo = 0;
+  let count = 0;
+  games.forEach(game => {
+    gameNo += 1;
+    count = (playerWins.includes(game)) ? count + 1 : count
+    graphData.push({name : gameNo, wins : count, ratio : (count/games)})
+  })
+
+  console.log(graphData)
 
   const byPlayer = this.props.names.map(name => ({
     [name] : {
@@ -130,12 +143,13 @@ getDetails(player) {
 
 
   const total = games.length
-  const draws  = total - playerWins - playerLosses
+  console.log(games.length, playerWins.length, playerLosses.length)
+  const draws  = total - (playerWins.length + playerLosses.length)
   return [
     {
       games: total,
-      wins : playerWins,
-      losses : playerLosses,
+      wins : playerWins.length,
+      losses : playerLosses.length,
       draws : draws,
       best : best,
       worst : worst,
@@ -165,53 +179,65 @@ getDetails(player) {
           </Col>
         </Row>
         {this.props.focus &&
-          <ReactTable showPagination={false}
-          showPageSizeOptions={false}
-          data={data}
-          defaultPageSize={1}
-          className="-striped -highlight"
-          columns={[
-            {
-              columns: [
-                {
-                  Header: 'Games',
-                  accessor: 'games',
-                },
-                {
-                  Header: 'Wins',
-                  accessor: 'wins',
-                },
-                {
-                  Header: 'Losses',
-                  accessor: 'losses',
-                },
-                {
-                  Header: 'Draws',
-                  accessor: 'games',
-                },
-                {
-                  Header: 'Best Against',
-                  accessor: 'best',
-                },
-                {
-                  Header: 'Worst Against',
-                  accessor: 'worst',
-                },
-                {
-                  Header: 'Best With',
-                  accessor: 'bestWith',
-                },
-                {
-                  Header: 'Worst With',
-                  accessor: 'worstWith',
-                },
-                {
-                  Header: 'Favourite Team',
-                  accessor: 'fav',
-                }
-              ]
-              }]}
-              /> }
+          <div>
+            <ReactTable showPagination={false}
+            showPageSizeOptions={false}
+            data={data}
+            defaultPageSize={1}
+            className="-striped -highlight"
+            columns={[
+              {
+                columns: [
+                  {
+                    Header: 'Games',
+                    accessor: 'games',
+                  },
+                  {
+                    Header: 'Wins',
+                    accessor: 'wins',
+                  },
+                  {
+                    Header: 'Losses',
+                    accessor: 'losses',
+                  },
+                  {
+                    Header: 'Draws',
+                    accessor: 'draws',
+                  },
+                  {
+                    Header: 'Best Against',
+                    accessor: 'best',
+                  },
+                  {
+                    Header: 'Worst Against',
+                    accessor: 'worst',
+                  },
+                  {
+                    Header: 'Best With',
+                    accessor: 'bestWith',
+                  },
+                  {
+                    Header: 'Worst With',
+                    accessor: 'worstWith',
+                  },
+                  {
+                    Header: 'Favourite Team',
+                    accessor: 'fav',
+                  }
+                ]
+                }]}
+                />
+              <Col md={{ size: 8, offset: 2 }}>
+              <LineChart width={600} height={300}>
+                <XAxis dataKey="name"/>
+                <YAxis/>
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+                <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+              </LineChart>
+            </Col>
+            </div>}
+
           </div>
     )
   }
