@@ -130,7 +130,7 @@ getDetails(player) {
 
 
   const total = games.length
-  const draws  = total - playerWins - playerLosses
+  const draws  = total - (playerWins + playerLosses)
   return [
     {
       games: total,
@@ -187,7 +187,7 @@ getDetails(player) {
                 },
                 {
                   Header: 'Draws',
-                  accessor: 'games',
+                  accessor: 'draws',
                 },
                 {
                   Header: 'Best Against',

@@ -3,12 +3,12 @@ import store from './store.js'
 import axios from 'axios';
 import moment from 'moment';
 
-const MYSQL_ADD_GAME = 'http://localhost:3001/fifa/mysql';
-const MYSQL_REMOVE_GAME = 'http://localhost:3001/fifa/whoops';
-const MYSQL_GET_RECENT = 'http://localhost:3001/fifa/recent';
-const MYSQL_GET_STATS = 'http://localhost:3001/fifa/stats';
-const MYSQL_SEND_STATS = 'http://localhost:3001/fifa/stats';
-const MYSQL_GET_ALL = 'http://localhost:3001/fifa/all';
+const MYSQL_ADD_GAME = 'http://192.168.1.100:3001/fifa/mysql';
+const MYSQL_REMOVE_GAME = 'http://192.168.1.100:3001/fifa/whoops';
+const MYSQL_GET_RECENT = 'http://192.168.1.100:3001/fifa/recent';
+const MYSQL_GET_STATS = 'http://192.168.1.100:3001/fifa/stats';
+const MYSQL_SEND_STATS = 'http://192.168.1.100:3001/fifa/stats';
+const MYSQL_GET_ALL = 'http://192.168.1.100:3001/fifa/all';
 
 export const addGame = (game) => {
   return {
