@@ -7,6 +7,7 @@ import store from "./store/store.js";
 import { changeFocus } from './store/playerActions'
 import ReactTable from 'react-table'
 import { getAllGames } from './store/mysqlActions'
+import {XYPlot, LineSeries} from 'react-vis';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 const round = (number) => {
@@ -78,11 +79,12 @@ getDetails(player) {
     const teamGames = team[Object.keys(team)[0]].games
     const winsWithTeam = wins(teamGames, player)
     const lossesWithTeam = losses(teamGames, player)
-    const drawsWithTeam = teamGames.length - winsWithTeam - lossesWithTeam
+    const drawsWithTeam = teamGames.length - winsWithTeam.length - lossesWithTeam.length
     const points = 3 * winsWithTeam + drawsWithTeam
     return ({
       name : teamName,
       games : teamGames.length,
+      losses : lossesWithTeam.length,
       points : points,
       wins : winsWithTeam,
     })
@@ -93,13 +95,14 @@ getDetails(player) {
     const oppGames = opp[Object.keys(opp)[0]].games
     const winsAgOpp = wins(oppGames, player)
     const lossesAgOpp = losses(oppGames, player)
-    const drawsAgOpp = oppGames.length - winsAgOpp - lossesAgOpp
+    const drawsAgOpp = oppGames.length - winsAgOpp.length - lossesAgOpp.length
     const points = 3 * winsAgOpp + drawsAgOpp
     return ({
       name : oppName,
       games : oppGames.length,
       points : points,
-      wins : winsAgOpp,
+      wins : winsAgOpp.length,
+      losses : lossesAgOpp.length,
     })
 })
 
@@ -126,15 +129,26 @@ getDetails(player) {
 
   if (usefulResults.length > 0) {
     best = usefulResults[0].name
-    worst = usefulResults[usefulResults.length - 1].name
+  }
+
+  if (usefulResults.length > 0) {
+    worst = usefulResults.sort(function(a, b) {
+      return (agresti(b.games * 3, b.losses) - agresti(3 * a.games, a.losses))
+    })[0].name
   }
 
   let bestTeam = '-'
   let worstTeam = '-'
   if (usefulResultsTeam.length > 0) {
     bestTeam = usefulResultsTeam[0].name
-    worstTeam = usefulResultsTeam[usefulResultsTeam.length - 1].name
   }
+
+  if (usefulResults.length > 0) {
+    worstTeam = usefulResultsTeam.sort(function(a, b) {
+      return (agresti(b.games * 3, b.losses) - agresti(3 * a.games, a.losses))
+    })[0].name
+  }
+
 
   resultsTeam.sort(function(a, b) {
     return (b.games - a.games)
