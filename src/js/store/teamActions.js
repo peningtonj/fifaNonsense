@@ -2,8 +2,8 @@ import { RECIEVE_TEAMS } from '../constants/actions.js'
 import store from './store.js'
 import axios from 'axios';
 
-const MYSQL_ADD_TEAM = 'http://localhost:3001/fifa/teams';
-const MYSQL_GET_TEAMS = 'http://localhost:3001/fifa/teams';
+const MYSQL_ADD_TEAM = 'http://192.168.1.100:3001/fifa/teams';
+const MYSQL_GET_TEAMS = 'http://192.168.1.100:3001/fifa/teams';
 
 
 export const recieveTeams = (teams) => {

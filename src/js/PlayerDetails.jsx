@@ -143,8 +143,12 @@ getDetails(player) {
 
 
   const total = games.length
+<<<<<<< HEAD
   console.log(games.length, playerWins.length, playerLosses.length)
   const draws  = total - (playerWins.length + playerLosses.length)
+=======
+  const draws  = total - (playerWins + playerLosses)
+>>>>>>> 34786c67538ac535d79fbaefda7d25e73d473491
   return [
     {
       games: total,
@@ -179,65 +183,53 @@ getDetails(player) {
           </Col>
         </Row>
         {this.props.focus &&
-          <div>
-            <ReactTable showPagination={false}
-            showPageSizeOptions={false}
-            data={data}
-            defaultPageSize={1}
-            className="-striped -highlight"
-            columns={[
-              {
-                columns: [
-                  {
-                    Header: 'Games',
-                    accessor: 'games',
-                  },
-                  {
-                    Header: 'Wins',
-                    accessor: 'wins',
-                  },
-                  {
-                    Header: 'Losses',
-                    accessor: 'losses',
-                  },
-                  {
-                    Header: 'Draws',
-                    accessor: 'draws',
-                  },
-                  {
-                    Header: 'Best Against',
-                    accessor: 'best',
-                  },
-                  {
-                    Header: 'Worst Against',
-                    accessor: 'worst',
-                  },
-                  {
-                    Header: 'Best With',
-                    accessor: 'bestWith',
-                  },
-                  {
-                    Header: 'Worst With',
-                    accessor: 'worstWith',
-                  },
-                  {
-                    Header: 'Favourite Team',
-                    accessor: 'fav',
-                  }
-                ]
-                }]}
-                />
-              <Col md={{ size: 8, offset: 2 }}>
-              <LineChart width={600} height={300}>
-                <XAxis dataKey="name"/>
-                <YAxis/>
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-              </LineChart>
-            </Col>
-            </div>}
-
+          <ReactTable showPagination={false}
+          showPageSizeOptions={false}
+          data={data}
+          defaultPageSize={1}
+          className="-striped -highlight"
+          columns={[
+            {
+              columns: [
+                {
+                  Header: 'Games',
+                  accessor: 'games',
+                },
+                {
+                  Header: 'Wins',
+                  accessor: 'wins',
+                },
+                {
+                  Header: 'Losses',
+                  accessor: 'losses',
+                },
+                {
+                  Header: 'Draws',
+                  accessor: 'draws',
+                },
+                {
+                  Header: 'Best Against',
+                  accessor: 'best',
+                },
+                {
+                  Header: 'Worst Against',
+                  accessor: 'worst',
+                },
+                {
+                  Header: 'Best With',
+                  accessor: 'bestWith',
+                },
+                {
+                  Header: 'Worst With',
+                  accessor: 'worstWith',
+                },
+                {
+                  Header: 'Favourite Team',
+                  accessor: 'fav',
+                }
+              ]
+              }]}
+              /> }
           </div>
     )
   }
