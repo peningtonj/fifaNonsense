@@ -7,7 +7,6 @@ import store from "./store/store.js";
 import { changeFocus } from './store/playerActions'
 import ReactTable from 'react-table'
 import { getAllGames } from './store/mysqlActions'
-import {XYPlot, LineSeries} from 'react-vis';
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 const round = (number) => {
