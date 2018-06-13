@@ -240,7 +240,7 @@ getDetails(player) {
                       margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                  <XAxis dataKey="games"/>
                  <YAxis label={{ value: 'Wins', angle: -90, position: 'insideLeft' }} yAxisId="left" padding={{top: 30}}/>
-                 <YAxis label={{ value: 'Percentage', angle: -90, position: 'right' }} yAxisId="right" orientation="right" padding={{top: 30}}/>
+                 <YAxis domain={[0, 1]} label={{ value: 'Percentage', angle: -90, position: 'right' }} yAxisId="right" orientation="right" padding={{top: 30}}/>
                  <CartesianGrid strokeDasharray="3 3"/>
                  <Tooltip/>
                  <Legend />
