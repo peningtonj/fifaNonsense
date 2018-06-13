@@ -12,29 +12,16 @@ import { sendGame, getMostRecent } from "./js/store/mysqlActions.js"
 import { connect } from 'react-redux'
 import AddTeam from './js/AddTeam'
 import { addTeam } from './js/store/teamActions.js'
-<<<<<<< HEAD
-import {reset} from 'redux-form';
-=======
 import { reset } from 'redux-form'
->>>>>>> 34786c67538ac535d79fbaefda7d25e73d473491
 
 class App extends Component {
   handleSubmit(values) {
     store.dispatch(sendGame(values));
-<<<<<<< HEAD
     store.dispatch(reset('addGame'))
 }
 teamSubmit(values) {
   store.dispatch(addTeam(values.team));
   store.dispatch(reset('addTeam'))
-
-=======
-    store.dispatch(reset('addGame'));
-}
-teamSubmit(values) {
-  store.dispatch(addTeam(values.team));
-  store.dispatch(reset('addTeam'));
->>>>>>> 34786c67538ac535d79fbaefda7d25e73d473491
 }
   render() {
     return (
