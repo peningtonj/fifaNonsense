@@ -14,7 +14,7 @@ var bodyParser = require('body-parser')
  app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://192.168.1.100:3000');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE, FETCH');
@@ -31,17 +31,16 @@ var bodyParser = require('body-parser')
 });
 
  app.get("/fifa/stats",function(req,res){
+   console.log("Fifa Stats Get")
    var mySql = 'SELECT * FROM stats'
-   console.log(mySql)
    connection.query(mySql, function(err, rows, fields) {
      if (err) throw err;
-     console.log("stats")
-     console.log(rows)
      res.send(rows)
    })
  });
 
  app.get("/fifa/teams",function(req,res){
+   console.log("Fifa Teams Get")
    var mySql = 'SELECT * FROM teams GROUP BY name'
    connection.query(mySql, function(err, rows, fields) {
      if (err) throw err;
@@ -53,10 +52,7 @@ var bodyParser = require('body-parser')
    var getid = 'SELECT MAX(id) AS id FROM fifa '
    connection.query(getid, function(err, rows, fields) {
      if (err) throw err;
-     console.log(rows)
-     console.log(rows[0].id)
      var mySql = 'DELETE FROM fifa WHERE id=' + rows[0].id
-     console.log(mySql)
      connection.query(mySql, function(err, rows, fields) {
        if (err) throw err;
        res.send('')
@@ -65,6 +61,7 @@ var bodyParser = require('body-parser')
 });
 
  app.post("/fifa/teams",function(req,res){
+   console.log("Fifa Teams Post")
    var mySql = 'INSERT INTO teams VALUES (\''+ req.body.team +'\')'
    connection.query(mySql, function(err, rows, fields) {
      if (err) throw err;
@@ -75,7 +72,7 @@ var bodyParser = require('body-parser')
 
 
  app.post("/fifa/stats",function(req,res){
-   console.log(req.body.update)
+   console.log("Fifa Stats Post")
    req.body.update.forEach(entry => {
      var mySql = 'UPDATE stats SET '
      + 'games = ' + entry.games + ', '
@@ -110,12 +107,11 @@ var bodyParser = require('body-parser')
 
 
  app.post("/fifa/recent", function(req,res){
-   console.log(req.body)
+   console.log("Fifa Recent Post")
    var mysql = 'SELECT * FROM fifa WHERE id '
     + ' BETWEEN (SELECT GREATEST (0, (SELECT MAX(id) FROM fifa) - '
     + req.body.num + ')) '
     + 'AND (SELECT MAX(id) FROM fifa)'
-    console.log(mysql)
     connection.query(mysql, function (err, result) {
       if (err) throw err;
       res.send(result)
@@ -125,7 +121,7 @@ var bodyParser = require('body-parser')
  });
 
  app.post("/fifa/mysql", function(req,res){
-   console.log(req.body)
+   console.log("Fifa Add Game")
    var mySql = 'INSERT INTO fifa (id, home, homeTeam, away, awayTeam, homeScore, awayScore, played) VALUES (NULL,"' +
    req.body.home + '", "'   +
    req.body.homeTeam + '", "'   +
@@ -135,10 +131,8 @@ var bodyParser = require('body-parser')
    req.body.awayScore +'", "'   +
    req.body.date + '"'
    + ')';
-   console.log(mySql)
    connection.query(mySql, function (err, result) {
      if (err) throw err;
-     console.log("added")
    })
    res.send('')
  })
